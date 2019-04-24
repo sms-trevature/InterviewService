@@ -156,7 +156,7 @@ public class InterviewController {
 
 	@PostMapping("/associateInput")
 	public ResponseEntity<Interview> newAssociateInput(@Valid @RequestBody NewAssociateInput a) {
-		//System.out.println(a);
+		System.out.println(a);
 		return ResponseEntity.ok(interviewService.addAssociateInput(a));
 	}
 	
@@ -190,7 +190,7 @@ public class InterviewController {
         return interviewService.findInterviewsPerAssociate(pageParameters);
     }
 
-	@GetMapping("reports/AssociateNeedFeedback")
+	@GetMapping("reports/AssociateNeedFeedback") //////////////////////////////////////////////////////////////
 	public List<User> getAssociateNeedFeedback() {
         return interviewService.getAssociateNeedFeedback();
     }
