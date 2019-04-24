@@ -12,12 +12,30 @@ public class NewAssociateInput {
     private boolean descriptionProvided;
     private InterviewFormat interviewFormat;
     private InterviewFormat proposedFormat;
+    private boolean dayNotice; 
 
     public NewAssociateInput() {
         super();
     }
+    
+ 
 
     public NewAssociateInput(int interviewId, int associateInputId, Date receivedNotifications,
+			boolean descriptionProvided, InterviewFormat interviewFormat, InterviewFormat proposedFormat,
+			boolean dayNotice) {
+		super();
+		this.interviewId = interviewId;
+		this.associateInputId = associateInputId;
+		this.receivedNotifications = receivedNotifications;
+		this.descriptionProvided = descriptionProvided;
+		this.interviewFormat = interviewFormat;
+		this.proposedFormat = proposedFormat;
+		this.dayNotice = dayNotice;
+	}
+
+
+
+	public NewAssociateInput(int interviewId, int associateInputId, Date receivedNotifications,
             boolean descriptionProvided, InterviewFormat interviewFormat, InterviewFormat proposedFormat) {
         this.interviewId = interviewId;
         this.associateInputId = associateInputId;
@@ -108,8 +126,22 @@ public class NewAssociateInput {
         this.proposedFormat = proposedFormat;
         return this;
     }
+    
+    
 
-    @Override
+    public boolean isDayNotice() {
+		return dayNotice;
+	}
+
+
+
+	public void setDayNotice(boolean dayNotice) {
+		this.dayNotice = dayNotice;
+	}
+
+
+
+	@Override
     public boolean equals(Object o) {
         if (o == this)
             return true;
@@ -130,12 +162,16 @@ public class NewAssociateInput {
                 proposedFormat);
     }
 
-    @Override
-    public String toString() {
-        return "{" + " interviewId='" + getInterviewId() + "'" + ", associateInputId='" + getAssociateInputId() + "'"
-                + ", receivedNotifications='" + getReceivedNotifications() + "'" + ", descriptionProvided='"
-                + isDescriptionProvided() + "'" + ", interviewFormat='" + getInterviewFormat() + "'"
-                + ", proposedFormat='" + getProposedFormat() + "'" + "}";
-    }
+
+
+	@Override
+	public String toString() {
+		return "NewAssociateInput [interviewId=" + interviewId + ", associateInputId=" + associateInputId
+				+ ", receivedNotifications=" + receivedNotifications + ", descriptionProvided=" + descriptionProvided
+				+ ", interviewFormat=" + interviewFormat + ", proposedFormat=" + proposedFormat + ", dayNotice="
+				+ dayNotice + "]";
+	}
+
+   
 
 }
