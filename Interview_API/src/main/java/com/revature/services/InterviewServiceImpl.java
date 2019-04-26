@@ -189,14 +189,16 @@ public class InterviewServiceImpl implements InterviewService {
 	@Override
     public Interview addAssociateInput(NewAssociateInput a) {
         
-        int interviewNumber = a.getInterviewId();
+//        int interviewNumber = a.getInterviewId();
+        System.out.println("Day notice is: " + a.isDayNotice());
+        System.out.println("Recieved notifications is: " + a.getReceivedNotifications());
+//        System.out.println("interview Number"+interviewNumber);
+//        System.out.println("object found with the id"+this.findById(interviewNumber));
        
-        System.out.println("interview Number"+interviewNumber);
-        System.out.println("object found with the id"+this.findById(interviewNumber));
-       
-        Interview temp = this.findById(interviewNumber);     
+        Interview temp = this.findById(2);     
         AssociateInput ai = new AssociateInput(0, a.getReceivedNotifications(), a.isDescriptionProvided(), temp, a.getInterviewFormat(), 
-        a.getProposedFormat());
+        a.getProposedFormat(), a.isDayNotice());
+        System.out.println("Temp is: " + temp.toString());
         System.out.println(ai.isDescriptionProvided());
         System.out.println(ai.getReceivedNotifications());
         System.out.println(ai.getInterviewFormat());
