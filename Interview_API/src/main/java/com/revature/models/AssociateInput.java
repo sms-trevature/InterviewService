@@ -37,10 +37,13 @@ public class AssociateInput {
 	@OneToOne
 	@JoinColumn(name = "interview_format")
 	private InterviewFormat interviewFormat;
-	
+
 	@OneToOne
 	@JoinColumn(name = "proposed_format")
 	private InterviewFormat proposedFormat;
+	
+	@Column(name = "day_notice")
+	private boolean dayNotice;
 
 	public AssociateInput() {
 		super();
@@ -57,8 +60,19 @@ public class AssociateInput {
 		this.interviewFormat = interviewFormat;
 		this.proposedFormat = proposedFormat;
 	}
-
 	
+	public AssociateInput(int id, Date receivedNotifications, boolean descriptionProvided, Interview interview,
+			InterviewFormat interviewFormat, InterviewFormat proposedFormat, boolean dayNotice) {
+		super();
+		this.id = id;
+		this.receivedNotifications = receivedNotifications;
+		this.descriptionProvided = descriptionProvided;
+		this.interview = interview;
+		this.interviewFormat = interviewFormat;
+		this.proposedFormat = proposedFormat;
+		this.dayNotice = dayNotice;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -150,4 +164,11 @@ public class AssociateInput {
 		return true;
 	}		
 
+	@Override
+	public String toString() {
+		return "AssociateInput [id=" + id + ", receivedNotifications=" + receivedNotifications
+				+ ", descriptionProvided=" + descriptionProvided + ", interview=" + interview + ", interviewFormat="
+				+ interviewFormat + ", proposedFormat=" + proposedFormat + "]";
+	}
+	
 }

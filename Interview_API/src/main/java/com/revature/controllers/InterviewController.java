@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,6 +44,7 @@ import com.revature.services.AssociateInputService;
 import com.revature.services.InterviewService;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("interview")
 public class InterviewController {
 
@@ -117,8 +119,12 @@ public class InterviewController {
 	}
 	
 	@PostMapping("/new")
-	public ResponseEntity<Interview> addNewInterview(@Valid @RequestBody NewInterviewData i) {
+	public ResponseEntity<Interview> addNewInterview( @RequestBody NewInterviewData i) {
+		System.out.println("endpoint");
+		
+		System.out.println(i);
 		Interview returnedInterview = interviewService.addNewInterview(i);
+		System.out.println(returnedInterview);
 		if(returnedInterview != null) {
 			return ResponseEntity.ok(returnedInterview);
 		}

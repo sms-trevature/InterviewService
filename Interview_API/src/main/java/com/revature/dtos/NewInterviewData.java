@@ -1,10 +1,11 @@
 package com.revature.dtos;
 
+import java.sql.Date;
 import java.util.Objects;
 
 public class NewInterviewData {
   	private String associateEmail;
-	private long date;
+	private Date date;
 	private String location;
 	private String client; 
 
@@ -12,7 +13,7 @@ public class NewInterviewData {
 		super();
 	}
 
-	public NewInterviewData(String associateEmail, long date, String location, String client) {
+	public NewInterviewData(String associateEmail, Date date, String location, String client) {
 		super();
 		this.associateEmail = associateEmail;
 		this.date = date;
@@ -28,11 +29,11 @@ public class NewInterviewData {
 		this.associateEmail = associateEmail;
 	}
 
-	public long getDate() {
+	public Date getDate() {
 		return this.date;
 	}
 
-	public void setDate(long date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
@@ -57,7 +58,7 @@ public class NewInterviewData {
 		return this;
 	}
 
-	public NewInterviewData date(long date) {
+	public NewInterviewData date(Date date) {
 		this.date = date;
 		return this;
 	}

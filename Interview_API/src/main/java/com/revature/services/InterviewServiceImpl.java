@@ -102,9 +102,9 @@ public class InterviewServiceImpl implements InterviewService {
 
 	public Interview addNewInterview(NewInterviewData i) {
 		try {
-			String managerEmail = cognitoUtil.getRequesterClaims().getEmail();
+			//String managerEmail = cognitoUtil.getRequesterClaims().getEmail();
 			String associateEmail = i.getAssociateEmail();
-			Date scheduled = new Date(i.getDate());// TODO: check this is valid date
+			Date scheduled = i.getDate();// TODO: check this is valid date
 			String location = i.getLocation();
 			String client = i.getClient();
 			
@@ -116,7 +116,8 @@ public class InterviewServiceImpl implements InterviewService {
 			}
 			
 
-			Interview newInterview = new Interview(0, managerEmail, associateEmail, scheduled, null, null, location, null, null, c);	
+			Interview newInterview = new Interview(0, "blake.kruppa@revature.com", associateEmail, scheduled, null, null, location, null, null, c);	
+			System.out.println(newInterview);
 			return save(newInterview);
 		} catch (Exception e) {
 			System.out.println("exception: " + e);
@@ -189,14 +190,16 @@ public class InterviewServiceImpl implements InterviewService {
 	@Override
     public Interview addAssociateInput(NewAssociateInput a) {
         
-        int interviewNumber = a.getInterviewId();
+//        int interviewNumber = a.getInterviewId();
+        System.out.println("Day notice is: " + a.isDayNotice());
+        System.out.println("Recieved notifications is: " + a.getReceivedNotifications());
+//        System.out.println("interview Number"+interviewNumber);
+//        System.out.println("object found with the id"+this.findById(interviewNumber));
        
-        System.out.println("interview Number"+interviewNumber);
-        System.out.println("object found with the id"+this.findById(interviewNumber));
-       
-        Interview temp = this.findById(interviewNumber);     
+        Interview temp = this.findById(2);     
         AssociateInput ai = new AssociateInput(0, a.getReceivedNotifications(), a.isDescriptionProvided(), temp, a.getInterviewFormat(), 
-        a.getProposedFormat());
+        a.getProposedFormat(), a.isDayNotice());
+        System.out.println("Temp is: " + temp.toString());
         System.out.println(ai.isDescriptionProvided());
         System.out.println(ai.getReceivedNotifications());
         System.out.println(ai.getInterviewFormat());

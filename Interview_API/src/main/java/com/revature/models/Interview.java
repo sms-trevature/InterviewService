@@ -28,6 +28,7 @@ public class Interview {
 	@Column(name = "associate_email")
 	private String associateEmail;
 	
+	
 	private Date scheduled;
 	private Date notified;
 	private Date reviewed;
@@ -51,6 +52,17 @@ public class Interview {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+
+	public Interview(String managerEmail, String associateEmail, Date scheduled, String place, Client client) {
+		super();
+		this.managerEmail = managerEmail;
+		this.associateEmail = associateEmail;
+		this.scheduled = scheduled;
+		this.place = place;
+		this.client = client;
+	}
+
 
 	public Interview(int id, String managerEmail, String associateEmail, Date scheduled, Date notified, Date reviewed, String place, InterviewFeedback feedback, AssociateInput associateInput, Client client) {
 		this.id = id;
