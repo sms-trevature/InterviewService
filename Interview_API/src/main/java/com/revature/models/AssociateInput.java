@@ -26,6 +26,7 @@ public class AssociateInput {
 	
 	@Column(name = "received_notifications")
 	private Date receivedNotifications;
+	
 	@Column(name = "description_provided")
 	private boolean descriptionProvided;
 	
