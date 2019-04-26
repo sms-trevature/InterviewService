@@ -90,13 +90,13 @@ public class InterviewServiceImpl implements InterviewService {
 
 	@Override
 	public List<Interview> findAll() {
-		List<String> roles = cognitoUtil.getRequesterRoles();
-		if(roles.contains(CognitoRoles.ADMIN) || roles.contains(CognitoRoles.STAGING_MANAGER))
+//		List<String> roles = cognitoUtil.getRequesterRoles();
+//		if(roles.contains(CognitoRoles.ADMIN) || roles.contains(CognitoRoles.STAGING_MANAGER))
 			return interviewRepo.findAll();
-		else {
-			String email = cognitoUtil.getRequesterClaims().getEmail();
-			return interviewRepo.findByAssociateEmail(email);
-		}
+//		else {
+//			String email = cognitoUtil.getRequesterClaims().getEmail();
+//			return interviewRepo.findByAssociateEmail(email);
+//		}
 	}
 
 
@@ -191,15 +191,28 @@ public class InterviewServiceImpl implements InterviewService {
     public Interview addAssociateInput(NewAssociateInput a) {
         
         int interviewNumber = a.getInterviewId();
+       
+        System.out.println("interview Number"+interviewNumber);
+        System.out.println("object found with the id"+this.findById(interviewNumber));
+       
         Interview temp = this.findById(interviewNumber);     
         AssociateInput ai = new AssociateInput(0, a.getReceivedNotifications(), a.isDescriptionProvided(), temp, a.getInterviewFormat(), 
         a.getProposedFormat());
+        System.out.println(ai.isDescriptionProvided());
+        System.out.println(ai.getReceivedNotifications());
+        System.out.println(ai.getInterviewFormat());
+        System.out.println(ai.getProposedFormat());
+       
+       // System.out.println(temp);
 
-		temp.setAssociateInput(ai);
+		//temp.setAssociateInput(ai);
+		//System.out.println(temp);
 		associateRepo.save(ai);
 	
-		return temp;
+		return null;
     }
+	
+	
 
 	public Interview setFeedback(FeedbackData f) {
 		InterviewFeedback interviewFeedback = new InterviewFeedback(0, new Date(f.getFeedbackRequestedDate()), f.getFeedbackText(), new Date(f.getFeedbackReceivedDate()), new FeedbackStatus(1, "Pending"));
