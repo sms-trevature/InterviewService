@@ -90,13 +90,13 @@ public class InterviewServiceImpl implements InterviewService {
 
 	@Override
 	public List<Interview> findAll() {
-//		List<String> roles = cognitoUtil.getRequesterRoles();
-//		if(roles.contains(CognitoRoles.ADMIN) || roles.contains(CognitoRoles.STAGING_MANAGER))
+		List<String> roles = cognitoUtil.getRequesterRoles();
+		if(roles.contains(CognitoRoles.ADMIN) || roles.contains(CognitoRoles.STAGING_MANAGER))
 			return interviewRepo.findAll();
-//		else {
-//			String email = cognitoUtil.getRequesterClaims().getEmail();
-//			return interviewRepo.findByAssociateEmail(email);
-//		}
+		else {
+			String email = cognitoUtil.getRequesterClaims().getEmail();
+			return interviewRepo.findByAssociateEmail(email);
+		}
 	}
 
 
