@@ -162,13 +162,13 @@ public class AssociateInput {
 		} else if (!receivedNotifications.equals(other.receivedNotifications))
 			return false;
 		return true;
-	}		
+	}
 
 	@Override
 	public String toString() {
 		return "AssociateInput [id=" + id + ", receivedNotifications=" + receivedNotifications
-				+ ", descriptionProvided=" + descriptionProvided + ", interview=" + interview + ", interviewFormat="
-				+ interviewFormat + ", proposedFormat=" + proposedFormat + "]";
-	}
+				+ ", descriptionProvided=" + descriptionProvided + ", interviewFormat="
+				+ interviewFormat + ", proposedFormat=" + proposedFormat + ", dayNotice=" + dayNotice + "]";
+	}		
 	
 }

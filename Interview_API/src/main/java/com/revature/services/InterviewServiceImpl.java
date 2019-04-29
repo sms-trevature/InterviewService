@@ -90,19 +90,19 @@ public class InterviewServiceImpl implements InterviewService {
 
 	@Override
 	public List<Interview> findAll() {
-//		List<String> roles = cognitoUtil.getRequesterRoles();
-//		if(roles.contains(CognitoRoles.ADMIN) || roles.contains(CognitoRoles.STAGING_MANAGER))
+	List<String> roles = cognitoUtil.getRequesterRoles();
+	if(roles.contains(CognitoRoles.ADMIN) || roles.contains(CognitoRoles.STAGING_MANAGER))
 			return interviewRepo.findAll();
-//		else {
-//			String email = cognitoUtil.getRequesterClaims().getEmail();
-//			return interviewRepo.findByAssociateEmail(email);
-//		}
+		else {
+		String email = cognitoUtil.getRequesterClaims().getEmail();
+		return interviewRepo.findByAssociateEmail(email);
+	}
 	}
 
 
 	public Interview addNewInterview(NewInterviewData i) {
 		try {
-			//String managerEmail = cognitoUtil.getRequesterClaims().getEmail();
+			String managerEmail = cognitoUtil.getRequesterClaims().getEmail();
 			String associateEmail = i.getAssociateEmail();
 			Date scheduled = i.getDate();// TODO: check this is valid date
 			String location = i.getLocation();
