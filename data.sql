@@ -1,4 +1,3 @@
-
 /*Begin Dropping Tables*/
 	/*Level 2 Tables*/
 		drop table if exists interview;
@@ -45,6 +44,7 @@
 			description_provided             boolean   not null,
 			interview_format                 integer   not null,
 			proposed_format                  integer   not null,
+			day_notice						 boolean   not null,
 			constraint pk_associate_input    primary key (associate_input_id),
 			constraint fk_interview_format   foreign key (interview_format) references interview_format (interview_format_id),
 			constraint fk_proposed_format    foreign key (proposed_format) references interview_format (interview_format_id)
@@ -95,14 +95,14 @@
 		insert into interview_feedback (feedback_requested, feedback, feedback_received, feedback_delivered, feedback_status)
 			values ('2019-03-05 13:00:00', 'Solid interview.', '2019-03-06 14:00:00', '2019-03-07 15:00:00', 5);
 	/*associate_input*/
-		insert into associate_input (received_notifications, description_provided, interview_format, proposed_format)
-			values ('2019-02-28 14:00:00', true, 1, 1);
-		insert into associate_input (received_notifications, description_provided, interview_format, proposed_format)
-			values ('2019-02-27 12:15:00', true, 2, 2);
-		insert into associate_input (received_notifications, description_provided, interview_format, proposed_format)
-			values ('2019-02-27 12:00:00', true, 3, 3);
-		insert into associate_input (received_notifications, description_provided, interview_format, proposed_format)
-			values ('2019-03-04 12:00:00', true, 1, 4);
+		insert into associate_input (received_notifications, description_provided, interview_format, proposed_format, day_notice)
+			values ('2019-02-28 14:00:00', true, 1, 1, true);
+		insert into associate_input (received_notifications, description_provided, interview_format, proposed_format, day_notice)
+			values ('2019-02-27 12:15:00', true, 2, 2, false);
+		insert into associate_input (received_notifications, description_provided, interview_format, proposed_format, day_notice)
+			values ('2019-02-27 12:00:00', true, 3, 3, true);
+		insert into associate_input (received_notifications, description_provided, interview_format, proposed_format, day_notice)
+			values ('2019-03-04 12:00:00', true, 1, 4, false);
 	/*Interview*/
 		insert into interview (manager_email, associate_email, place, scheduled, notified, reviewed, interview_feedback, associate_input, client)
 			values ('blake.kruppa@revature.com', 'loricodes@gmail.com', 'USF', '2019-02-28 12:00:00', '2019-02-28 14:00:00', '2019-03-01 16:00:00', 1, 1, 1);
