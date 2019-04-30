@@ -121,6 +121,14 @@ public class AssociateInput {
 		this.proposedFormat = proposedFormat;
 	}
 
+	public boolean isDayNotice() {
+		return dayNotice;
+	}
+
+	public void setDayNotice(boolean dayNotice) {
+		this.dayNotice = dayNotice;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

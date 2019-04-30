@@ -40,18 +40,17 @@ public class AssociateInputServiceImpl implements AssociateInputService {
 
     @Override
     public Interview addAssociateInput(NewAssociateInput a) {
-        
-        // int interviewNumber = a.getInterviewId();
-        // Interview temp = interviewService.findById(interviewNumber);
+        System.out.println("INSIDE INTERVIEW SERVICE TO GET INTERVIEW");
+         int interviewNumber = a.getInterviewId();
+         Interview temp = interviewService.findById(interviewNumber);
 
-        // AssociateInput ai = new AssociateInput(0, a.getReceivedNotifications(), a.isDescriptionProvided(), temp, a.getInterviewFormat(), 
-        // a.getProposedFormat());
+         AssociateInput ai = new AssociateInput(0, a.getReceivedNotifications(), a.isDescriptionProvided(), temp, a.getInterviewFormat(), 
+         a.getProposedFormat());
 
-        // temp.setAssociateInput(ai);
-        // System.out.println(temp.toString());
+         temp.setAssociateInput(ai);
+         System.out.println(temp.toString());
 
-        // interviewService.save(temp);
-        // return temp;
-        return new Interview();
+         interviewService.save(temp);
+         return temp;
     }
 }

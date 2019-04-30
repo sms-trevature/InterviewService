@@ -193,11 +193,11 @@ public class InterviewServiceImpl implements InterviewService {
 //        int interviewNumber = a.getInterviewId();
         System.out.println("Day notice is: " + a.isDayNotice());
         System.out.println("Recieved notifications is: " + a.getReceivedNotifications());
-//        System.out.println("interview Number"+interviewNumber);
+//        System.out.println("interview Number"+ interviewNumber);
 //        System.out.println("object found with the id"+this.findById(interviewNumber));
-       
+        
         Interview temp = this.findById(2);     
-        AssociateInput ai = new AssociateInput(0, a.getReceivedNotifications(), a.isDescriptionProvided(), temp, a.getInterviewFormat(), 
+        AssociateInput ai = new AssociateInput(a.getAssociateInputId(), a.getReceivedNotifications(), a.isDescriptionProvided(), temp, a.getInterviewFormat(), 
         a.getProposedFormat(), a.isDayNotice());
         System.out.println("Temp is: " + temp.toString());
         System.out.println(ai.isDescriptionProvided());
@@ -205,10 +205,10 @@ public class InterviewServiceImpl implements InterviewService {
         System.out.println(ai.getInterviewFormat());
         System.out.println(ai.getProposedFormat());
        
-       // System.out.println(temp);
+//        System.out.println(temp);
 
-		//temp.setAssociateInput(ai);
-		//System.out.println(temp);
+		temp.setAssociateInput(ai);
+		System.out.println(temp);
 		associateRepo.save(ai);
 	
 		return null;

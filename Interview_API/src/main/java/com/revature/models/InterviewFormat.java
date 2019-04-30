@@ -15,7 +15,7 @@ public class InterviewFormat {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "interview_format_id")
 	private int id;
-	
+
 	@Column(name = "interview_format_description")
 	private String formatDesc;
 
@@ -73,14 +73,12 @@ public class InterviewFormat {
 			return false;
 		return true;
 	}
-	
 
 	@Override
 	public String toString() {
-		return "{" +
-			" id='" + getId() + "'" +
-			", formatDesc='" + getFormatDesc() + "'" +
-			"}";
+		return "InterviewFormat [id=" + id + ", formatDesc=" + formatDesc + "]";
 	}
+	
+	
 	
 }
