@@ -73,6 +73,8 @@ public class AssociateInput {
 		this.dayNotice = dayNotice;
 	}
 
+	
+
 	public int getId() {
 		return id;
 	}
@@ -167,7 +169,7 @@ public class AssociateInput {
 	@Override
 	public String toString() {
 		return "AssociateInput [id=" + id + ", receivedNotifications=" + receivedNotifications
-				+ ", descriptionProvided=" + descriptionProvided + ", interview=" + interview + ", interviewFormat="
+				+ ", descriptionProvided=" + descriptionProvided + ", interviewFormat="
 				+ interviewFormat + ", proposedFormat=" + proposedFormat + "]";
 	}
 	

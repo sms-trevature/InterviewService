@@ -102,7 +102,7 @@ public class InterviewServiceImpl implements InterviewService {
 
 	public Interview addNewInterview(NewInterviewData i) {
 		try {
-			//String managerEmail = cognitoUtil.getRequesterClaims().getEmail();
+			String managerEmail = cognitoUtil.getRequesterClaims().getEmail();
 			String associateEmail = i.getAssociateEmail();
 			Date scheduled = i.getDate();// TODO: check this is valid date
 			String location = i.getLocation();
