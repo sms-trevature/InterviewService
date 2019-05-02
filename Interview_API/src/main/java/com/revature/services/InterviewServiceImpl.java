@@ -54,52 +54,76 @@ import com.revature.repos.FeedbackRepo;
 import com.revature.repos.InterviewRepo;
 import com.revature.utils.ListToPage;
 
+/**
+ * The Class InterviewServiceImpl.
+ */
 @Service
 public class InterviewServiceImpl implements InterviewService {
 
+	/** The interview repository. */
 	@Autowired
 	private InterviewRepo interviewRepo;
 
+	/** The associate repository. */
 	@Autowired
 	private AssociateInputRepo associateRepo;
 	
+	/** The client repository. */
 	@Autowired
 	private ClientRepo clientRepo;
 
+	/** The user client. */
 	@Autowired
 	private IUserClient userClient;
 
+	/** The cognito util. */
 	@Autowired
 	private CognitoUtil cognitoUtil;
 
+	/** The feedback repository. */
 	@Autowired
 	private FeedbackRepo feedbackRepo;
 	
+	/* (non-Javadoc)
+	 * @see com.revature.services.InterviewService#save(com.revature.models.Interview)
+	 */
 	public Interview save(Interview i) {
 		return interviewRepo.save(i);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.revature.services.InterviewService#update(com.revature.models.Interview)
+	 */
 	@Override
 	public Interview update(Interview i) {
 		return interviewRepo.save(i);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.revature.services.InterviewService#delete(com.revature.models.Interview)
+	 */
 	public Interview delete(Interview i) {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.revature.services.InterviewService#findAll()
+	 */
 	@Override
 	public List<Interview> findAll() {
-		List<String> roles = cognitoUtil.getRequesterRoles();
-		if(roles.contains(CognitoRoles.ADMIN) || roles.contains(CognitoRoles.STAGING_MANAGER))
+	List<String> roles = cognitoUtil.getRequesterRoles();
+	if(roles.contains(CognitoRoles.ADMIN) || roles.contains(CognitoRoles.STAGING_MANAGER))
 			return interviewRepo.findAll();
 		else {
-			String email = cognitoUtil.getRequesterClaims().getEmail();
-			return interviewRepo.findByAssociateEmail(email);
+		String email = cognitoUtil.getRequesterClaims().getEmail();
+		return interviewRepo.findByAssociateEmail(email);
 		}
 	}
 
 
+	/* (non-Javadoc)
+	 * @see com.revature.services.InterviewService#addNewInterview(com.revature.dtos.NewInterviewData)
+	 */
 	public Interview addNewInterview(NewInterviewData i) {
 		try {
 			String managerEmail = cognitoUtil.getRequesterClaims().getEmail();
@@ -126,11 +150,17 @@ public class InterviewServiceImpl implements InterviewService {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see com.revature.services.InterviewService#findAll(org.springframework.data.domain.Pageable)
+	 */
 	public Page<Interview> findAll(Pageable page) {
 		// TODO Auto-generated method stub
 		return interviewRepo.findAll(page);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.revature.services.InterviewService#findInterviewsPerAssociate()
+	 */
 	public List<AssociateInterview> findInterviewsPerAssociate() {
 		List<Interview> interviews = interviewRepo.findAll();
 		List<AssociateInterview> associates = new ArrayList<AssociateInterview>();
@@ -168,11 +198,17 @@ public class InterviewServiceImpl implements InterviewService {
 		return associates;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.revature.services.InterviewService#findInterviewsPerAssociate(org.springframework.data.domain.Pageable)
+	 */
 	public Page<AssociateInterview> findInterviewsPerAssociate(Pageable page) {
 		PageImpl PI = ListToPage.getPage(findInterviewsPerAssociate(), page);
 		return PI;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.revature.services.InterviewService#findById(int)
+	 */
 	@Override
 	public Interview findById(int i) {
 		List<Interview> listInt = interviewRepo.findAll();
@@ -187,17 +223,20 @@ public class InterviewServiceImpl implements InterviewService {
 		return found;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.revature.services.InterviewService#addAssociateInput(com.revature.dtos.NewAssociateInput)
+	 */
 	@Override
     public Interview addAssociateInput(NewAssociateInput a) {
         
 //        int interviewNumber = a.getInterviewId();
         System.out.println("Day notice is: " + a.isDayNotice());
         System.out.println("Recieved notifications is: " + a.getReceivedNotifications());
-//        System.out.println("interview Number"+interviewNumber);
+//        System.out.println("interview Number"+ interviewNumber);
 //        System.out.println("object found with the id"+this.findById(interviewNumber));
-       
+        
         Interview temp = this.findById(2);     
-        AssociateInput ai = new AssociateInput(0, a.getReceivedNotifications(), a.isDescriptionProvided(), temp, a.getInterviewFormat(), 
+        AssociateInput ai = new AssociateInput(a.getAssociateInputId(), a.getReceivedNotifications(), a.isDescriptionProvided(), temp, a.getInterviewFormat(), 
         a.getProposedFormat(), a.isDayNotice());
         System.out.println("Temp is: " + temp.toString());
         System.out.println(ai.isDescriptionProvided());
@@ -205,10 +244,10 @@ public class InterviewServiceImpl implements InterviewService {
         System.out.println(ai.getInterviewFormat());
         System.out.println(ai.getProposedFormat());
        
-       // System.out.println(temp);
+//        System.out.println(temp);
 
-		//temp.setAssociateInput(ai);
-		//System.out.println(temp);
+		temp.setAssociateInput(ai);
+		System.out.println(temp);
 		associateRepo.save(ai);
 	
 		return null;
@@ -216,6 +255,9 @@ public class InterviewServiceImpl implements InterviewService {
 	
 	
 
+	/* (non-Javadoc)
+	 * @see com.revature.services.InterviewService#setFeedback(com.revature.dtos.FeedbackData)
+	 */
 	public Interview setFeedback(FeedbackData f) {
 		InterviewFeedback interviewFeedback = new InterviewFeedback(0, new Date(f.getFeedbackRequestedDate()), f.getFeedbackText(), new Date(f.getFeedbackReceivedDate()), new FeedbackStatus(1, "Pending"));
 		Interview i = interviewRepo.findById(f.getInterviewId());
@@ -228,6 +270,9 @@ public class InterviewServiceImpl implements InterviewService {
 			return null;
   }
   
+	/* (non-Javadoc)
+	 * @see com.revature.services.InterviewService#getAssociateNeedFeedback()
+	 */
 	@Override
 	public List<User> getAssociateNeedFeedback() {
 		List<Interview> interviews = interviewRepo.findAll();
@@ -249,12 +294,18 @@ public class InterviewServiceImpl implements InterviewService {
 		return associates;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.revature.services.InterviewService#getAssociateNeedFeedback(org.springframework.data.domain.Pageable)
+	 */
 	@Override
 	public Page<User> getAssociateNeedFeedback(Pageable page) {
 		PageImpl PI = ListToPage.getPage(getAssociateNeedFeedback(), page);
 		return PI;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.revature.services.InterviewService#getAssociateNeedFeedbackChart()
+	 */
 	@Override
 	public Integer[] getAssociateNeedFeedbackChart() {
 		List<Interview> interviews = interviewRepo.findAll();
@@ -282,6 +333,11 @@ public class InterviewServiceImpl implements InterviewService {
 		return feedbackChart;
 	}
 
+	/**
+	 * Gets the all interviews within 24 hour notice associate.
+	 *
+	 * @return the all interviews within 24 hour notice associate
+	 */
 	public List<Interview> getAllInterviewsWithin24HourNoticeAssociate(){
 		//find all interviews
 		List<Interview> allUsers = interviewRepo.findAll();
@@ -325,6 +381,9 @@ public class InterviewServiceImpl implements InterviewService {
         return allNotifiedUsers;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.revature.services.InterviewService#getInterviewsWithin24HourNoticeAssociate()
+	 */
 	public List<Integer> getInterviewsWithin24HourNoticeAssociate(){
 		//find all interviews
 		List<Interview> allNotifiedUsers = getAllInterviewsWithin24HourNoticeAssociate();
@@ -336,6 +395,11 @@ public class InterviewServiceImpl implements InterviewService {
         return returning;
 	}
 	
+	/**
+	 * Gets the all interviews within 24 hour notice manager.
+	 *
+	 * @return the all interviews within 24 hour notice manager
+	 */
 	public List<Interview> getAllInterviewsWithin24HourNoticeManager(){
 		//find all interviews
 		List<Interview> allUsers = interviewRepo.findAll();
@@ -379,6 +443,9 @@ public class InterviewServiceImpl implements InterviewService {
         return allNotifiedUsers;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.revature.services.InterviewService#getInterviewsWithin24HourNoticeManager()
+	 */
 	public List<Integer> getInterviewsWithin24HourNoticeManager() {
 		//find all interviews
 		List<Interview> allNotifiedUsers = getAllInterviewsWithin24HourNoticeManager();
@@ -390,6 +457,11 @@ public class InterviewServiceImpl implements InterviewService {
         return returning;
     }
 
+	/**
+	 * Gets the all 24 hour notice without name.
+	 *
+	 * @return the all 24 hour notice without name
+	 */
 	private List<Interview24Hour> getAll24HourNoticeWithoutName(){
 		List<Interview> DataIn = interviewRepo.findAll();
 		System.out.println(DataIn);
@@ -400,6 +472,9 @@ public class InterviewServiceImpl implements InterviewService {
 		return DataOut;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.revature.services.InterviewService#getAll24HourNotice()
+	 */
 	public List<Interview24Hour> getAll24HourNotice(){
 		List<Interview24Hour> Data= getAll24HourNoticeWithoutName();
 		
@@ -416,11 +491,19 @@ public class InterviewServiceImpl implements InterviewService {
 		return Data;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.revature.services.InterviewService#getAll24HourNotice(org.springframework.data.domain.Pageable)
+	 */
 	public Page<Interview24Hour> getAll24HourNotice(Pageable page) {
 		PageImpl PI = ListToPage.getPage(getAll24HourNotice(), page);
 		return PI;
 	}
 
+	/**
+	 * Gets the all JD no name.
+	 *
+	 * @return the all JD no name
+	 */
 	private List<InterviewAssociateJobData> getAllJDNoName(){
 		List<Interview> DataIn = interviewRepo.findAll();
 		System.out.println(DataIn);
@@ -431,6 +514,9 @@ public class InterviewServiceImpl implements InterviewService {
 		return DataOut;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.revature.services.InterviewService#getAllJD()
+	 */
 	public List<InterviewAssociateJobData> getAllJD(){
 		List<InterviewAssociateJobData> Data= getAllJDNoName();
 		
@@ -447,16 +533,25 @@ public class InterviewServiceImpl implements InterviewService {
 		return Data;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.revature.services.InterviewService#getAllJD(org.springframework.data.domain.Pageable)
+	 */
 	public Page<InterviewAssociateJobData> getAllJD(Pageable page) {
 		PageImpl PI = ListToPage.getPage(getAllJD(), page);
 		return PI;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.revature.services.InterviewService#getInterviewFeedbackByInterviewID(int)
+	 */
 	@Override
 	public InterviewFeedback getInterviewFeedbackByInterviewID(int interviewId) {
 		return interviewRepo.findById(interviewId).getFeedback();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.revature.services.InterviewService#markReviewed(int)
+	 */
 	@Override
 	public Interview markReviewed(int interviewId) {
 		Interview I = interviewRepo.findById(interviewId);
@@ -464,16 +559,25 @@ public class InterviewServiceImpl implements InterviewService {
 		return interviewRepo.save(I);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.revature.services.InterviewService#findByAssociateEmail(java.lang.String)
+	 */
 	@Override
 	public Interview findByAssociateEmail(String s) {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.revature.services.InterviewService#findByManagerEmail(java.lang.String)
+	 */
 	@Override
 	public Interview findByManagerEmail(String s) {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.revature.services.InterviewService#findAllByAssociateEmail(java.lang.String, org.springframework.data.domain.Pageable)
+	 */
 	public Page<Interview> findAllByAssociateEmail(String email, Pageable page) {
 		PageImpl PI = ListToPage.getPage(interviewRepo.findByAssociateEmail(email), page);
 		return PI;

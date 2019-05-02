@@ -17,23 +17,55 @@ import com.revature.cognito.annotations.CognitoAuth;
 import com.revature.cognito.constants.CognitoRoles;
 import com.revature.models.User;
 
+/**
+ * The Interface IUserClient.
+ */
 @FeignClient(name="user-service", url="http://localhost:8765/users")
 public interface IUserClient {
 
+	/**
+	 * Find all.
+	 *
+	 * @return the string
+	 */
 	//@CognitoAuth(roles = { "staging-manager" })
 	@GetMapping
 	String findAll();
 
+	/**
+	 * Find by id.
+	 *
+	 * @param id the id
+	 * @return the user
+	 */
 	@GetMapping("{id}")
 	public User findById(@PathVariable int id);
 
+	/**
+	 * Find by email.
+	 *
+	 * @param email the email
+	 * @return the response entity
+	 */
 	@GetMapping(path = "email/{email}")
 	public ResponseEntity<User> findByEmail(@PathVariable("email") String email);
 
+	/**
+	 * Find all by cohort id.
+	 *
+	 * @param id the id
+	 * @return the list
+	 */
 	@CognitoAuth(roles = { CognitoRoles.STAGING_MANAGER, CognitoRoles.TRAINER })
 	@GetMapping("cohorts/{id}")
 	public List<User> findAllByCohortId(@PathVariable int id);
 
+	/**
+	 * Save.
+	 *
+	 * @param u the u
+	 * @return the user
+	 */
 	@CognitoAuth(roles = { "staging-manager" })
 	@PostMapping
 	public User save(@RequestBody User u);
