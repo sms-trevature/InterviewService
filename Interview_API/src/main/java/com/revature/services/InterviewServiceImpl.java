@@ -117,7 +117,7 @@ public class InterviewServiceImpl implements InterviewService {
 		else {
 		String email = cognitoUtil.getRequesterClaims().getEmail();
 		return interviewRepo.findByAssociateEmail(email);
-	}
+		}
 	}
 
 
