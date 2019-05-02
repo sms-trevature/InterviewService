@@ -4,12 +4,28 @@ import java.util.Date;
 
 import com.revature.models.Interview;
 
+/**
+ * DTO class for storing associate interview job description data.
+ */
 public class InterviewAssociateJobData {
+	
+	/** The Interview date. */
 	private Date InterviewDate;
+	
+	/** The associate email. */
 	private String assocEmail;
+	
+	/** The associate name. */
 	private String assocName;
+	
+	/** The job description. */
 	private boolean JD;
 	
+	/**
+	 * Instantiates a new interview associate job data.
+	 *
+	 * @param I the interview
+	 */
 	public InterviewAssociateJobData(Interview I){
 		this.InterviewDate = I.getScheduled();
 		this.assocEmail = I.getAssociateEmail();
@@ -21,26 +37,54 @@ public class InterviewAssociateJobData {
 		}
 	}
 
+	/**
+	 * Gets the associate name.
+	 *
+	 * @return the associate name
+	 */
 	public String getAssocName() {
 		return assocName;
 	}
 
+	/**
+	 * Sets the associate name.
+	 *
+	 * @param assocName the new associate name
+	 */
 	public void setAssocName(String assocName) {
 		this.assocName = assocName;
 	}
 
+	/**
+	 * Gets the interview date.
+	 *
+	 * @return the interview date
+	 */
 	public Date getInterviewDate() {
 		return InterviewDate;
 	}
 
+	/**
+	 * Gets the associate email.
+	 *
+	 * @return the associate email
+	 */
 	public String getAssocEmail() {
 		return assocEmail;
 	}
 
+	/**
+	 * Checks if job description was provided.
+	 *
+	 * @return true, if job description was provided
+	 */
 	public boolean isJD() {
 		return JD;
 	}
 
+	/**
+	 * Generates object hash code.
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -51,6 +95,11 @@ public class InterviewAssociateJobData {
 		return result;
 	}
 
+	/**
+	 * Checks equivalence of two objects.
+	 * 
+	 * @param obj The object to test equivalence against
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -75,6 +124,9 @@ public class InterviewAssociateJobData {
 		return true;
 	}
 
+	/**
+	 * Prints object in string format.
+	 */
 	@Override
 	public String toString() {
 		return "InterviewAssociateJobData [InterviewDate=" + InterviewDate + ", assocEmail=" + assocEmail

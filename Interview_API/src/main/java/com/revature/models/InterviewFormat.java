@@ -7,45 +7,82 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Model class for storing interview format data.
+ */
 @Entity
 @Table(name = "interview_format")
 public class InterviewFormat {
 
+	/** The id. */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "interview_format_id")
 	private int id;
 
+	/** The format description. */
 	@Column(name = "interview_format_description")
 	private String formatDesc;
 
+	/**
+	 * Instantiates a new interview format.
+	 *
+	 * @param id the id
+	 * @param formatDesc the format description
+	 */
 	public InterviewFormat(int id, String formatDesc) {
 		super();
 		this.id = id;
 		this.formatDesc = formatDesc;
 	}
 
+	/**
+	 * Instantiates a new interview format.
+	 */
 	public InterviewFormat() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
 	public int getId() {
 		return id;
 	}
 
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	/**
+	 * Gets the format description.
+	 *
+	 * @return the format description
+	 */
 	public String getFormatDesc() {
 		return formatDesc;
 	}
 
+	/**
+	 * Sets the format description.
+	 *
+	 * @param formatDesc the new format description
+	 */
 	public void setFormatDesc(String formatDesc) {
 		this.formatDesc = formatDesc;
 	}
 
+	/**
+	 * Generates object hash code.
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -55,6 +92,11 @@ public class InterviewFormat {
 		return result;
 	}
 
+	/**
+	 * Checks equivalence of two objects.
+	 * 
+	 * @param obj The object to test equivalence against
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -74,11 +116,11 @@ public class InterviewFormat {
 		return true;
 	}
 
+	/**
+	 * Prints object in string format.
+	 */
 	@Override
 	public String toString() {
 		return "InterviewFormat [id=" + id + ", formatDesc=" + formatDesc + "]";
 	}
-	
-	
-	
 }

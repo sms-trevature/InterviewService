@@ -12,11 +12,23 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 //import com.revature.annotations.Logging;
 
+/**
+ * The Class LoggingAspect.
+ */
 @Aspect
 @Component
 public class LoggingAspect {
+	
+	/** The logger. */
 	private Logger logger = Logger.getRootLogger();
 	
+	/**
+	 * Logging.
+	 *
+	 * @param pjp the pjp
+	 * @return the object
+	 * @throws Throwable the throwable
+	 */
 	@Around("execution(* com.revature.services.*.*(..))")
 	public Object Logging(ProceedingJoinPoint pjp) throws Throwable {
 		String logInfo = "";
@@ -50,6 +62,13 @@ public class LoggingAspect {
 		return value;
 	}
 	
+	/**
+	 * Logging 2.
+	 *
+	 * @param pjp the pjp
+	 * @return the object
+	 * @throws Throwable the throwable
+	 */
 	@Around("execution(* com.revature.controllers.*.*(..))")
 	public Object Logging2(ProceedingJoinPoint pjp) throws Throwable {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
